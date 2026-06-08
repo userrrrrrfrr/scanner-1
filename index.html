@@ -11,20 +11,17 @@ body {
   background: #111;
   color: white;
 }
-
 video {
   width: 300px;
   margin-top: 20px;
   border: 2px solid white;
 }
-
 #result {
   margin-top: 20px;
   font-size: 22px;
   word-break: break-word;
 }
 </style>
-
 </head>
 <body>
 
@@ -41,7 +38,7 @@ const result = document.getElementById("result");
 
 let scanned = false;
 
-// הפעלת מצלמה
+// מצלמה
 navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
 .then(stream => {
     video.srcObject = stream;
@@ -69,14 +66,13 @@ function scan() {
     requestAnimationFrame(scan);
 }
 
-// כאן כל ה־QRים שלך
 function handleQR(data) {
 
     scanned = true;
 
     result.innerText = "נסרק: " + data;
 
-    if (data === "https://www.acerparts.ca/") {
+    if (data === "https://shorturl.at/oEZav") {
         result.innerText = "128328892032984392388422928492938292904919481949";
     }
 

@@ -17,26 +17,25 @@ body {
 }
 
 h1 {
-  font-size: 18px;
-  margin: 12px 0;
+  font-size: 16px;
+  margin: 10px 0;
 }
 
 video {
-  width: 92vw;
-  max-width: 420px;
-  height: auto;
-  border-radius: 12px;
+  width: 85vw;
+  max-width: 320px;
+  border-radius: 10px;
   border: 2px solid white;
 }
 
 #result {
-  margin-top: 15px;
-  font-size: 18px;
-  padding: 10px;
-  width: 92vw;
-  max-width: 420px;
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 8px;
+  width: 85vw;
+  max-width: 320px;
   background: rgba(255,255,255,0.08);
-  border-radius: 10px;
+  border-radius: 8px;
   word-break: break-word;
   text-align: center;
 }
@@ -69,7 +68,7 @@ async function startCamera() {
         });
 
         video.srcObject = stream;
-        result.innerText = "מצלמה פועלת - ממתין לסריקה";
+        result.innerText = "מצלמה פועלת...";
         scan();
 
     } catch (err) {

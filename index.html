@@ -30,8 +30,8 @@ video {
 
 <h1>סורק QR מיוחד</h1>
 
-<video id="video" autoplay></video>
-<div id="result">ממתין לסריקה...</div>
+<video id="video" autoplay playsinline></video>
+<div id="result">טוען מצלמה...</div>
 
 <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
 
@@ -41,13 +41,24 @@ const result = document.getElementById("result");
 
 let scanned = false;
 
-navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-.then(stream => {
-    video.srcObject = stream;
-});
-
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
+
+async function startCamera() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment" }
+        });
+
+        video.srcObject = stream;
+        result.innerText = "מצלמה פועלת, ממתין לסריקה...";
+        scan();
+
+    } catch (err) {
+        result.innerText = "❌ אין גישה למצלמה";
+        console.error(err);
+    }
+}
 
 function scan() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
@@ -91,7 +102,7 @@ function handleQR(data) {
     }
 }
 
-scan();
+startCamera();
 </script>
 
 </body>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<title>QR Scanner</title>
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #111;
+  color: white;
+}
+video {
+  width: 300px;
+  margin-top: 20px;
+  border: 2px solid white;
+}
+#result {
+  margin-top: 20px;
+  font-size: 24px;
+}
+</style>
+</head>
+<body>
+
+<h1>סורק QR מיוחד</h1>
+
+<video id="video" autoplay></video>
+<div id="result">ממתין לסריקה...</div>
+
+<script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+
+<script>
+const video = document.getElementById("video");
+const result = document.getElementById("result");
+
+// מפעיל מצלמה
+navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+.then(stream => {
+    video.srcObject = stream;
+});
+
+// יצירת canvas נסתר
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext("2d");
+
+function scan() {
+    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+        if (code) {
+            handleQR(code.data);
+        }
+    }
+    requestAnimationFrame(scan);
+}
+
+// כאן אתה קובע מה כל QR עושה
+function handleQR(data) {
+
+    result.innerText = "נסרק: " + data;
+
+    // דוגמה ללוגיקה שלך:
+    if (data === "A1") {
+        result.innerText = "4831";
+    }
+    else if (data === "B2") {
+        result.innerText = "9275";
+    }
+    else if (data === "YOUTUBE") {
+        window.location.href = "https://youtube.com";
+    }
+}
+
+scan();
+</script>
+
+</body>
+</html>

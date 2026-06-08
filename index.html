@@ -11,33 +11,34 @@ body {
   padding: 0;
   background: #000;
   color: white;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
-  position: absolute;
-  top: 10px;
-  width: 100%;
-  text-align: center;
   font-size: 18px;
-  z-index: 2;
+  margin: 12px 0;
 }
 
 video {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
+  width: 92vw;
+  max-width: 420px;
+  height: auto;
+  border-radius: 12px;
+  border: 2px solid white;
 }
 
 #result {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.75);
-  padding: 15px;
+  margin-top: 15px;
   font-size: 18px;
+  padding: 10px;
+  width: 92vw;
+  max-width: 420px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
   word-break: break-word;
-  z-index: 2;
+  text-align: center;
 }
 </style>
 

@@ -34,13 +34,14 @@ video {
 const video = document.getElementById("video");
 const result = document.getElementById("result");
 
-// מפעיל מצלמה
+let scanned = false;
+
+// הפעלת מצלמה
 navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
 .then(stream => {
     video.srcObject = stream;
 });
 
-// יצירת canvas נסתר
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -48,33 +49,38 @@ function scan() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
+
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
         const code = jsQR(imageData.data, canvas.width, canvas.height);
 
-        if (code) {
+        if (code && !scanned) {
             handleQR(code.data);
         }
     }
     requestAnimationFrame(scan);
 }
 
-// כאן אתה קובע מה כל QR עושה
+// כאן אתה משנה הכל
 function handleQR(data) {
 
-    result.innerText = "נסרק: " + data;
+    scanned = true;
 
-    // דוגמה ללוגיקה שלך:
-    if (data === "https://shorturl.at/ew5N1") {
-        result.innerText = "1283288920329843923884229";
+    if (data === "A1") {
+        result.innerText = "128328892032984392388422928492938292904919481949";
     }
-    else if (data === "https://www.w3schools.com/dsa/") {
-        result.innerText = "2193847294759223232";
+
+    else if (data === "B2") {
+        result.innerText = "219384729475928528482938492342";
     }
-    else if (data === "https://www.energy.gov/") {
-        window.location.href = "3029384829482938392";
+
+    else if (data === "C3") {
+        result.innerText = "3029384829482938392943002948292848918482994829193";
+    }
+
+    else {
+        result.innerText = "QR לא מוכר";
     }
 }
 

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>QR Scanner</title>
+
 <style>
 body {
   font-family: Arial;
@@ -10,16 +11,20 @@ body {
   background: #111;
   color: white;
 }
+
 video {
   width: 300px;
   margin-top: 20px;
   border: 2px solid white;
 }
+
 #result {
   margin-top: 20px;
-  font-size: 24px;
+  font-size: 22px;
+  word-break: break-word;
 }
 </style>
+
 </head>
 <body>
 
@@ -47,6 +52,7 @@ const ctx = canvas.getContext("2d");
 
 function scan() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
+
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
 
@@ -59,23 +65,26 @@ function scan() {
             handleQR(code.data);
         }
     }
+
     requestAnimationFrame(scan);
 }
 
-// כאן אתה משנה הכל
+// כאן כל ה־QRים שלך
 function handleQR(data) {
 
     scanned = true;
 
-    if (data === "A1") {
+    result.innerText = "נסרק: " + data;
+
+    if (data === "https://shorturl.at/oEZav") {
         result.innerText = "128328892032984392388422928492938292904919481949";
     }
 
-    else if (data === "B2") {
+    else if (data === "https://www.w3schools.com/dsa/") {
         result.innerText = "219384729475928528482938492342";
     }
 
-    else if (data === "C3") {
+    else if (data === "https://www.energy.gov/") {
         result.innerText = "3029384829482938392943002948292848918482994829193";
     }
 
